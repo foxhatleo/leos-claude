@@ -1,0 +1,48 @@
+# AI tool state — never commit any assistant's local dirs
+.claude/
+.codex/
+.code/
+.cursor/
+.gemini/
+.opencode/
+.aider*
+.superpowers/
+CLAUDE.local.md
+
+# OS junk
+.DS_Store
+.AppleDouble
+.LSOverride
+Thumbs.db
+Desktop.ini
+
+# Editors / IDEs
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Secrets — belt and braces; none should ever exist here
+.env
+.env.*
+*.pem
+*.key
+credentials*.json
+auth.json
+*token*
+!**/*token*.md
+
+# Language / build detritus
+__pycache__/
+*.pyc
+node_modules/
+dist/
+build/
+.venv/
+venv/
+
+# Logs & temp
+*.log
+tmp/
+*.tmp

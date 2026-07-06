@@ -1,0 +1,87 @@
+{
+  "$doc": "Template for ~/.claude/council/seats.json (MACHINE-LOCAL — never commit). List external reviewer seats strongest-first; the native Sonnet seat is implicit and always present. Schema v2: driver 'exec' runs argv (array — never a shell string; the orchestrator quotes each element when building the Bash command). Tokens substituted per run: {EFFORT} (from efforts.default below critical tier, efforts.max at critical), {PROMPT_TEXT} (the review prompt content; for stdin-transport seats omit the token and set transport 'stdin' — the prompt file is piped). timeoutSeconds bounds each seat run. Only add a seat AFTER its driver smoke test passes (see drivers/). Empty seats [] = native-only council.",
+  "$schema_fields": {
+    "name": "short id, used in ledger + output filenames",
+    "lineage": "openai | google | zhipu | anthropic | other — used for diversity reporting",
+    "driver": "exec (external CLI) — native-agent is implicit, never listed",
+    "transport": "stdin (pipe prompt file) | arg (substitute {PROMPT_TEXT} in argv)",
+    "argv": "command as array, tokens: {EFFORT} {PROMPT_TEXT}",
+    "efforts": "{default, max} — values are CLI-specific (see driver doc)",
+    "timeoutSeconds": "per-run bound; default 600"
+  },
+  "$examples": {
+    "native-only (no external council)": {
+      "seats": []
+    },
+    "codex-cli + opencode (OpenRouter)": {
+      "seats": [
+        {
+          "name": "codex",
+          "lineage": "openai",
+          "driver": "exec",
+          "transport": "stdin",
+          "argv": [
+            "codex",
+            "exec",
+            "--sandbox",
+            "read-only",
+            "--skip-git-repo-check",
+            "-c",
+            "model_reasoning_effort={EFFORT}",
+            "-"
+          ],
+          "efforts": {
+            "default": "high",
+            "max": "xhigh"
+          },
+          "timeoutSeconds": 600
+        },
+        {
+          "name": "glm",
+          "lineage": "zhipu",
+          "driver": "exec",
+          "transport": "arg",
+          "argv": [
+            "opencode",
+            "run",
+            "--agent",
+            "plan",
+            "-m",
+            "openrouter/z-ai/glm-5.2",
+            "--variant",
+            "{EFFORT}",
+            "{PROMPT_TEXT}"
+          ],
+          "efforts": {
+            "default": "high",
+            "max": "max"
+          },
+          "timeoutSeconds": 600
+        },
+        {
+          "name": "gemini",
+          "lineage": "google",
+          "driver": "exec",
+          "transport": "arg",
+          "argv": [
+            "opencode",
+            "run",
+            "--agent",
+            "plan",
+            "-m",
+            "openrouter/google/gemini-3.5-flash",
+            "--variant",
+            "{EFFORT}",
+            "{PROMPT_TEXT}"
+          ],
+          "efforts": {
+            "default": "xhigh",
+            "max": "max"
+          },
+          "timeoutSeconds": 600
+        }
+      ]
+    }
+  },
+  "seats": []
+}

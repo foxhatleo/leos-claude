@@ -1,0 +1,81 @@
+{
+  "$doc": "Payload -> destination map. strategy 'copy' = whole file (ownership = content sha); 'merge-json' = deep-merge fragment keys into dest (ownership = value snapshot). 'since' = first VERSION shipping the item. Apply via tools/apply.py only. machineLocal documents files YOU generate at setup \u2014 apply.py never touches them. Removal semantics: 'removed' and apply.py remove apply ONLY to copy-strategy files; merge-json dests are never file-removed \u2014 retire settings keys by shrinking the fragment in a new version instead.",
+  "items": [
+    {
+      "src": "payload/hooks/bash-guard.py",
+      "dest": "~/.claude/hooks/bash-guard.py",
+      "strategy": "copy",
+      "since": 1
+    },
+    {
+      "src": "payload/hooks/format-on-edit.py",
+      "dest": "~/.claude/hooks/format-on-edit.py",
+      "strategy": "copy",
+      "since": 1
+    },
+    {
+      "src": "payload/council/bin/council.py",
+      "dest": "~/.claude/council/bin/council.py",
+      "strategy": "copy",
+      "since": 1
+    },
+    {
+      "src": "payload/council/DESIGN.md",
+      "dest": "~/.claude/council/DESIGN.md",
+      "strategy": "copy",
+      "since": 1
+    },
+    {
+      "src": "payload/council/prompts/review-impl.md",
+      "dest": "~/.claude/council/prompts/review-impl.md",
+      "strategy": "copy",
+      "since": 1
+    },
+    {
+      "src": "payload/council/prompts/review-plan.md",
+      "dest": "~/.claude/council/prompts/review-plan.md",
+      "strategy": "copy",
+      "since": 1
+    },
+    {
+      "src": "payload/skills/council/SKILL.md",
+      "dest": "~/.claude/skills/council/SKILL.md",
+      "strategy": "copy",
+      "since": 1
+    },
+    {
+      "src": "payload/settings/settings-fragment.json",
+      "dest": "~/.claude/settings.json",
+      "strategy": "merge-json",
+      "since": 1
+    }
+  ],
+  "removed": [],
+  "machineLocal": [
+    {
+      "dest": "~/.claude/council/seats.json",
+      "generatedBy": "SETUP step 6",
+      "template": "payload/council/seats.template.json"
+    },
+    {
+      "dest": "~/.claude/council/config.json",
+      "generatedBy": "SETUP step 6"
+    },
+    {
+      "dest": "~/.claude/hooks/guard-config.json",
+      "generatedBy": "SETUP step 8"
+    },
+    {
+      "dest": "~/.claude/leos-claude.json",
+      "generatedBy": "apply.py record"
+    },
+    {
+      "dest": "~/.claude/settings.json permissions.allow entries",
+      "generatedBy": "SETUP step 2 (PM choice)"
+    },
+    {
+      "dest": "~/.claude/settings.json taste keys",
+      "generatedBy": "SETUP step 7 (suggested defaults)"
+    }
+  ]
+}

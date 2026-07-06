@@ -1,0 +1,32 @@
+{
+  "$doc": "Leo's taste settings \u2014 OFFER each at setup, never force. Ask per key (grouped is fine); record answers in the profile. 'attribution' default is DO NOT APPLY unless Leo opts in on that machine. NOTE: nested settings (e.g. permissions.defaultMode) must be written NESTED in settings.json \u2014 never as dotted flat keys.",
+  "suggested": {
+    "model": "opus",
+    "effortLevel": "high",
+    "ultracode": true,
+    "enableWorkflows": true,
+    "tui": "fullscreen",
+    "theme": "auto",
+    "terminalProgressBarEnabled": true,
+    "skipDangerousModePermissionPrompt": true,
+    "permissions": {
+      "defaultMode": "auto"
+    }
+  },
+  "askExplicitly": {
+    "attribution": {
+      "value": {
+        "commit": "",
+        "pr": ""
+      },
+      "note": "Blanks Claude attribution on commits/PRs. Default: SKIP (leave harness default) unless Leo says yes."
+    },
+    "statusLine": {
+      "value": {
+        "type": "command",
+        "command": "<ABSOLUTE-PATH-TO>/ccstatusline"
+      },
+      "note": "Only offer if ccstatusline was installed in the tools step; render the absolute path from the actual install location \u2014 never copy a path from another machine."
+    }
+  }
+}

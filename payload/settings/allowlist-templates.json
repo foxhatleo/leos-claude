@@ -1,0 +1,39 @@
+{
+  "$doc": "Permission allow-rules by package manager. Setup merges 'universal' + the chosen PM's list into permissions.allow. NOTE the known tradeoff (reviewed): allow rules are prefix-matched, so fixed-subcommand entries only; no run:*/exec:*/dlx:* (arbitrary script execution) and no ls/cat-style readers (could bypass Read denies via shell).",
+  "universal": [
+    "Bash(git status:*)",
+    "Bash(git diff:*)",
+    "Bash(git log:*)",
+    "Bash(git show:*)",
+    "Bash(git branch:*)",
+    "Bash(git add:*)",
+    "Bash(git commit:*)",
+    "Bash(gh pr view:*)",
+    "Bash(gh pr list:*)",
+    "Bash(gh issue view:*)",
+    "Bash(gh issue list:*)",
+    "Bash(gh run view:*)",
+    "Bash(gh run list:*)"
+  ],
+  "pnpm": [
+    "Bash(pnpm test:*)",
+    "Bash(pnpm lint:*)",
+    "Bash(pnpm typecheck:*)",
+    "Bash(pnpm build:*)",
+    "Bash(pnpm install)"
+  ],
+  "yarn": [
+    "Bash(yarn test:*)",
+    "Bash(yarn lint:*)",
+    "Bash(yarn typecheck:*)",
+    "Bash(yarn build:*)",
+    "Bash(yarn install)"
+  ],
+  "npm": [
+    "Bash(npm test:*)",
+    "Bash(npm run lint:*)",
+    "Bash(npm run typecheck:*)",
+    "Bash(npm run build:*)",
+    "Bash(npm install)"
+  ]
+}
