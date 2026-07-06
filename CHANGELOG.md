@@ -10,7 +10,11 @@ Initial release: Leo's full portable layer.
 
 ### Added
 - Council review system (engine `council.py`, seats-abstraction SKILL, prompts, DESIGN spec,
-  5 seat drivers: codex-cli, opencode, gemini-cli, cursor-cli, native-only).
+  5 seat drivers: codex-cli, opencode, gemini-cli, cursor-cli, native-only). Review prompts
+  carry a work-alone clause: seats must not convene review layers of their own (some seat CLIs
+  are provisioned as orchestrators with council-like settings).
+- Codex fast-mode setup option (plan-gated `service_tier = "fast"`; trial run at setup, falls
+  back to normal mode if the plan disallows it).
 - bash-guard PreToolUse tripwire (guard-config.json machine extras; 90+ test cases).
 - format-on-edit PostToolUse hook (9-toolchain auto-detection + lint feedback).
 - Settings fragment: 20 secrets deny rules + hook registrations ($HOME-portable commands).

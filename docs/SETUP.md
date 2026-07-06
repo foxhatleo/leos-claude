@@ -75,6 +75,10 @@ ASK which setup (combinable): none / Codex CLI / Gemini CLI / GLM+Gemini(+more) 
      NOW. Do not defer auth: an unauthenticated seat will silently fail at first council run.
   3. **Smoke test** (from the driver doc) — must return COUNCIL-OK.
 - Only seats that pass BOTH auth verification and the smoke test get written to seats.json.
+- Codex seat only: after its smoke test passes, ASK whether Codex should run in **fast mode**
+  (plan-gated priority processing). If yes, follow the trial-run procedure in
+  `drivers/codex-cli.md` — trial passes → enable it; trial shows the plan disallows it →
+  default to normal mode and say so in the final report. Record the answer + outcome.
 - Write `~/.claude/council/seats.json` (schema: `payload/council/seats.template.json`),
   strongest-first. None → `{"seats": []}` (native-only mode — see drivers/native-only.md).
 - Write `~/.claude/council/config.json` → `{"disabledProjects": []}`.

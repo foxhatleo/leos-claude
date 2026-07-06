@@ -57,6 +57,12 @@ synthesis.
 - **Reviewers run read-only:** Codex via `--sandbox read-only`; opencode reviewers via a read-only
   agent/permission profile (deny edits + write-bash). Reviewers *may* read/grep the repo to verify
   claims — that is the intended mode for implementation review — but cannot modify it.
+- **Reviewers work alone:** both review prompts instruct every seat to produce the review itself,
+  in that run — no subagents, no consulting other models, no second review layer. Some seat CLIs
+  (e.g. Codex) are provisioned on Leo's machines with orchestrator-side settings that convene a
+  review council of their own; a seat obeying those mid-review would nest councils and stall. The
+  clause is conditional and self-contained, so a seat with no such configuration reads it as a
+  no-op instead of getting confused.
 
 ---
 

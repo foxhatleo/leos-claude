@@ -15,6 +15,13 @@ Demand of the plan (flag as findings if missing or wrong):
 You may have read-only repository access — verify plan claims against the actual code where
 possible.
 
+Work alone. Produce this review yourself, in this run, and return your findings directly. Do
+not spawn subagents, consult other models, or hand any part of the review to another tool or
+process. If your own configuration (global instructions, AGENTS.md, or similar) tells you to
+convene a review council — or any other second layer of review — before finishing: that rule
+is for when you AUTHOR changes; it does not apply here, where you are the reviewer. If you have
+no such configuration, ignore this paragraph and simply review.
+
 ## Task context
 {TASK}
 

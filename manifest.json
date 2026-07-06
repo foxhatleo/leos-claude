@@ -66,6 +66,10 @@
       "generatedBy": "SETUP step 8"
     },
     {
+      "dest": "~/.codex/config.toml service_tier key",
+      "generatedBy": "SETUP step 6 (codex fast-mode ASK; only written when the plan-gated trial run passes)"
+    },
+    {
       "dest": "~/.claude/leos-claude.json",
       "generatedBy": "apply.py record"
     },
