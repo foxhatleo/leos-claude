@@ -9,6 +9,9 @@
 .superpowers/
 CLAUDE.local.md
 
+# Machine-local setup scratch (generated answers/fragments — recorded into the profile, never shared)
+work/
+
 # OS junk
 .DS_Store
 .AppleDouble
