@@ -6,7 +6,7 @@ answers as you go (they end up in the profile via `record --answers-file`).
 
 ## 0. Preflight
 
-- **Clone** (public repo — anonymous HTTPS clone works): `git clone https://github.com/foxhatleo/leos-claude`.
+- **Clone** (public repo — anonymous HTTPS clone works) into the dot-prefixed default dir: `git clone https://github.com/foxhatleo/leos-claude ~/.leos-claude`.
   `gh` auth is NOT required to install, but note whether `gh auth status` passes — the
   permission allowlist includes gh commands and some workflows benefit from it; offer
   `gh auth login` as an optional step.
@@ -34,8 +34,8 @@ ASK: pnpm / yarn / npm (Leo's usual answer: pnpm, but per machine). Then:
   `permissions.allow`: write a temp fragment `{"permissions": {"allow": [...]}}` and run
   `python3 tools/apply.py merge-settings --fragment <tempfile>` — the supported primitive for
   machine-generated settings (same conflict rules + ownership tracking as manifest merges).
-- Global-bin PATH parity: see `payload/shell/fish-env.md`. fish → `fish_add_path`; zsh →
-  `.zprofile` snippet. pnpm may additionally need `pnpm setup` — run it OUTSIDE any project dir
+- Global-bin PATH parity: see `payload/shell/shell-env.md`. zsh → `.zprofile` snippet (bash
+  fallback → `.bash_profile`). pnpm may additionally need `pnpm setup` — run it OUTSIDE any project dir
   (inside a project it may execute a project script named "setup").
 
 ## 3. Attribution

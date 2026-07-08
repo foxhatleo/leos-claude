@@ -1,21 +1,24 @@
-# Shell & environment knowledge (fish-first, but shell-agnostic where noted)
+# Shell & environment knowledge (zsh-first; bash only as a fallback)
 
-Hard-won facts about how Claude Code gets its environment on Leo's machines. Apply the fish
-sections only when the machine's login shell is fish.
+Hard-won facts about how Claude Code gets its environment on Leo's machines. The standard shell
+is **zsh** — fall back to `bash` only on a machine where zsh is unavailable. The shell-specific
+notes below are written for zsh; bash differences are called out.
 
 ## The inheritance model (all shells)
 
 Claude Code's Bash tool does NOT re-source shell profiles per command. At startup it snapshots
 the environment of the shell that **launched `claude`** (see `~/.claude/shell-snapshots/`), and
-Bash-tool sessions run a POSIX shell (zsh/bash) initialized from that snapshot. Consequences:
+Bash-tool sessions run a POSIX shell (zsh, or bash where zsh is absent) initialized from that
+snapshot. Consequences:
 
-- If Leo launches `claude` from fish, the harness inherits fish's full PATH/env — fish config
-  IS the harness config. Nothing extra needed.
-- Env changes made AFTER launch (e.g. `fish_add_path`) are invisible until Claude Code restarts.
-  **Diagnosis rule: tool works in Leo's terminal but "MISSING" in the Bash tool → restart the
-  Claude session.**
-- **Never switch the Bash tool or hook wrappers to fish** — they emit POSIX syntax; fish is
-  intentionally not POSIX. Environment parity, not shell-swapping, is the goal.
+- The shell that launches `claude` supplies the harness's PATH/env — keep its login config
+  correct (zsh: `~/.zprofile` / `~/.zshrc`; bash: `~/.bash_profile` / `~/.profile`) and it IS
+  the harness config. Nothing extra needed.
+- Env changes made AFTER launch (e.g. editing `~/.zprofile`) are invisible until Claude Code
+  restarts. **Diagnosis rule: tool works in Leo's terminal but "MISSING" in the Bash tool →
+  restart the Claude session.**
+- The Bash tool and hook wrappers emit POSIX syntax and run under zsh/bash — parity with the
+  login shell, not shell-swapping, is the goal.
 
 ## Hooks & absolute paths
 
@@ -26,14 +29,13 @@ with a rendered absolute path (`command -v ccstatusline`).
 
 ## Package-manager global bins
 
-- **fish**: `fish_add_path -U <bin-dir>` (universal variable, persists, fish-only). E.g. pnpm:
-  `fish_add_path -U ~/Library/pnpm/bin`.
-- **zsh parity** (harmless belt-and-braces; also covers zsh-launched contexts) — `~/.zprofile`:
+- **zsh** (standard) — add the global-bin dir in `~/.zprofile`:
   ```sh
   export PNPM_HOME="$HOME/Library/pnpm"
   export PATH="$PNPM_HOME/bin:$PNPM_HOME:$PATH"
   ```
   (Adapt for yarn/npm global dirs per the machine's PM choice.)
+- **bash** (fallback only) — the same `export` lines in `~/.bash_profile` (or `~/.profile`).
 - **pnpm gotcha**: `pnpm setup` inside a project directory may execute a *project script named
   "setup"* instead of pnpm's builtin. Run it from `$HOME`.
 
